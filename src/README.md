@@ -11,7 +11,6 @@
 * id : Long -> 게시판 ID
 * title : String -> 게시판 이름
 * createdTime : LocalDateTime -> 생성시간
-* posts : List -> 게시글들
 
 ### 수정 Patch "/boards/{boardId}" 
 ###### Path Variable_
@@ -32,7 +31,7 @@
 ###### Body parameter_
 * title : String -> 게시글 이름
 * content : String -> 게시글 내용
-* board : Board -> 게시판 ID
+* board : Board -> 게시판 ID ????
 * writer: String -> 작성자
 
 ### 목록 조회 Get "/posts"

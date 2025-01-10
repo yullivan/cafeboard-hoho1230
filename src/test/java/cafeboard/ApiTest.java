@@ -51,5 +51,14 @@ public class ApiTest {
         assertThat(board.getTitle()).isEqualTo("게시판 생성 테스트중입니다.");
 
     }
+    @Test
+    void 상품목록조회() {
+        RestAssured
+                .given()
+                .when()
+                .get("/boards") // 서버로 GET /products 요청
+                .then()
+                .statusCode(200); // 요청에 대한 서버 응답의 상태코드가 200인지 검증
+    }
 
 }
