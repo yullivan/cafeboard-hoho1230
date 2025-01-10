@@ -12,7 +12,7 @@
 * title : String -> 게시판 이름
 * createdTime : LocalDateTime -> 생성시간
 
-### 수정 Patch "/boards/{boardId}" 
+### 수정 Put "/boards/{boardId}" 
 ###### Path Variable_
 * id : Long -> 게시판 ID
 ###### Body parameter_

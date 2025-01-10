@@ -45,4 +45,8 @@ public class Board {
     public List<Post> getPostList() {
         return PostList;
     }
+    public void updateAll(String title){
+        this.title=title;
+
+    }
 }

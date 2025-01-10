@@ -1,10 +1,7 @@
 package cafeboard.Board;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +17,12 @@ public class BoardController {
         return SERVICE.create(request);
     }
     @GetMapping("/boards")
-    public List<ReadBoardResponse> findAll(){
+    public List<ReadBoardResponse> read(){
         return SERVICE.findAll();
+    }
+    @PutMapping("/boards/{boardId}")
+    public Board update(@PathVariable Long boardId,@RequestBody CreateBoardRequest request){
+        return SERVICE.update(boardId,request);
     }
 
 }
