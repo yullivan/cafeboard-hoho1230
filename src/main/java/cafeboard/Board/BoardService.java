@@ -35,4 +35,8 @@ public class BoardService {
         REPOSITORY.save(board);
         return  board;
     }
+
+    public void deleteById(Long boardId) {
+        REPOSITORY.deleteById(boardId);
+    }
 }

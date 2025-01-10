@@ -26,7 +26,7 @@ public class ApiTest {
     }
 
     @Test
-    void 상품목록생성() {
+    void 게시판생성() {
         RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
                 .body(new CreateBoardRequest("게시판 생성 테스트중입니다."))
@@ -37,7 +37,7 @@ public class ApiTest {
 
     }
     @Test
-    void createDate검증() {
+    void 게시판생성검증() {
         Board board = RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
                 .body(new CreateBoardRequest("게시판 생성 테스트중입니다."))
@@ -47,12 +47,12 @@ public class ApiTest {
                 .statusCode(200).extract().as(Board.class);
 
         System.out.println(board.getCreateTime());
-        assertThat(board.getId()).isEqualTo(2);
+        assertThat(board.getId()).isEqualTo(1);
         assertThat(board.getTitle()).isEqualTo("게시판 생성 테스트중입니다.");
 
     }
     @Test
-    void 상품목록조회() {
+    void 게시판목록조회() {
         RestAssured
                 .given()
                 .when()
@@ -61,7 +61,7 @@ public class ApiTest {
                 .statusCode(200); // 요청에 대한 서버 응답의 상태코드가 200인지 검증
     }
     @Test
-    void 상품수정검증() {
+    void 게시판수정검증() {
         RestAssured.given().log().all()
                 .pathParam("boardId", "1")
                 .contentType(ContentType.JSON)
@@ -72,4 +72,15 @@ public class ApiTest {
                 .statusCode(200);
     }
 
+    @Test
+    void 게시판삭제() {
+        RestAssured
+                .given().log().all()
+                .pathParam("boardId", "1")
+                .when()
+                .delete("/boards/{boardId}") // 서버로 GET /products 요청
+                .then().log().all()
+                .statusCode(200);
+
+    }
 }
