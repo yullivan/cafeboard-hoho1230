@@ -1,9 +1,6 @@
 package cafeboard.Post;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +18,9 @@ public class PostController {
     @GetMapping("/posts")
     public List<ReadPostResponse> read(){
         return SERVICE.findAll();
+    }
+    @GetMapping("/posts/{postId}")
+    public PostIdResponse findById(@PathVariable Long postId){
+        return SERVICE.findById(postId); 
     }
 }

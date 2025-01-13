@@ -68,4 +68,7 @@ public class Post {
         return commentCount;
     }
 
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
 }
