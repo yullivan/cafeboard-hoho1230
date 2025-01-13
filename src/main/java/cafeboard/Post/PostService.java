@@ -52,4 +52,7 @@ public class PostService {
         post.setBoard(board);
 
     }
+    public void deleteById(Long postId) {
+        repository.deleteById(postId);
+    }
 }
