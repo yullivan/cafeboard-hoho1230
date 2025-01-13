@@ -20,7 +20,7 @@ public class Board {
     @CreatedDate
     private LocalDateTime createTime;
 
-    @OneToMany(mappedBy = "board",cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @OneToMany(mappedBy = "board",cascade = CascadeType.REMOVE)
     private List<Post> PostList;
 
     public Board() {

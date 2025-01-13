@@ -3,6 +3,7 @@ package cafeboard.Post;
 import cafeboard.Board.Board;
 import cafeboard.Board.BoardRepository;
 import cafeboard.Board.CreateBoardRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +43,13 @@ public class PostService {
         Board board = boardRepository.findById(post.getBoard().getId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
         return new PostIdResponse(post.getId(),post.getTitle(),post.getContent()
                 ,new CreateBoardRequest(board.getTitle()),post.getCreateTime(),post.getWriter(),post.getCommentList());
+    }
+    @Transactional
+    public void update(Long id, updatePostRequest request){
+        Post post = repository.findById(id).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + id));
+        Board board = boardRepository.findById(request.boardId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
+        post.change(request);
+        post.setBoard(board);
+
     }
 }

@@ -60,6 +60,7 @@
 * id : Long -> 게시글 ID
 ###### Body parameter_
 * title : String -> 게시글 이름
+* content : String -> 게시글 내용
 * board : Board -> 게시판 ID
 * writer: String -> 작성자
 

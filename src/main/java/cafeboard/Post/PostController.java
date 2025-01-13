@@ -23,4 +23,8 @@ public class PostController {
     public PostIdResponse findById(@PathVariable Long postId){
         return SERVICE.findById(postId); 
     }
+    @PutMapping("/posts/{postId}")
+    public void update(@PathVariable Long postId,@RequestBody updatePostRequest request){
+        SERVICE.update(postId,request);
+    }
 }

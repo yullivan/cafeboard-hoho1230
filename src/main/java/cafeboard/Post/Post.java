@@ -71,4 +71,26 @@ public class Post {
     public List<Comment> getCommentList() {
         return commentList;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void change(updatePostRequest request){
+        title=request.title();
+        content= request.content();
+        writer= request.writer();
+    }
 }

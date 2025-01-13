@@ -13,16 +13,16 @@ public class BoardController {
         this.SERVICE = SERVICE;
     }
     @PostMapping("/boards")
-    public Board create(@RequestBody CreateBoardRequest request){
-        return SERVICE.create(request);
+    public void create(@RequestBody CreateBoardRequest request){
+         SERVICE.create(request);
     }
     @GetMapping("/boards")
     public List<ReadBoardResponse> read(){
         return SERVICE.findAll();
     }
     @PutMapping("/boards/{boardId}")
-    public Board update(@PathVariable Long boardId,@RequestBody CreateBoardRequest request){
-        return SERVICE.update(boardId,request);
+    public void update(@PathVariable Long boardId,@RequestBody CreateBoardRequest request){
+         SERVICE.update(boardId,request);
     }
     @DeleteMapping("/boards/{boardId}")
     public void delete(@PathVariable Long boardId){
