@@ -15,10 +15,12 @@ public class PostController {
     public void create(@RequestBody CreatePostRequest request){
         SERVICE.create(request);
     }
+
     @GetMapping("/posts")
     public List<ReadPostResponse> read(){
         return SERVICE.findAll();
     }
+
     @GetMapping("/posts/{postId}")
     public PostIdResponse findById(@PathVariable Long postId){
         return SERVICE.findById(postId); 
