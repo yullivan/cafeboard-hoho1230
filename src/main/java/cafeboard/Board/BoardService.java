@@ -1,5 +1,6 @@
 package cafeboard.Board;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,11 +28,10 @@ public class BoardService {
                 .toList();
 
     }
-
+@Transactional
     public Board update(Long boardId, CreateBoardRequest request) {
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다.: " + boardId));
         board.updateAll(request.title());
-        boardRepository.save(board);
         return  board;
     }
 
