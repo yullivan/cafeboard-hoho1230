@@ -39,7 +39,19 @@ public class PostService {
                         post.getCommentCount()))
                 .toList();
     }
-
+    public List<ReadPostResponse> findByboardId(Long boardId) {
+        return repository.findAll()
+                .stream()
+                .filter(post -> post.getBoard().getId()==boardId)
+                .map(post -> new ReadPostResponse(
+                        post.getId(),
+                        post.getTitle(),
+                        post.getBoard().getId(),
+                        post.getWriter(),
+                        post.getCreateTime(),
+                        post.getCommentCount()))
+                .toList();
+    }
     public PostIdResponse findById(Long id) {
         Post post = repository.findById(id).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
         Board board = boardRepository.findById(post.getBoard().getId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
@@ -60,6 +72,7 @@ public class PostService {
                         .toList());
     }
 
+
     @Transactional
     public void update(Long id, updatePostRequest request) {
         Post post = repository.findById(id).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + id));
@@ -77,4 +90,6 @@ public class PostService {
             repository.deleteById(postId);
         } else throw new RuntimeException("작성자가 동일하지 않습니다");
     }
+
+
 }

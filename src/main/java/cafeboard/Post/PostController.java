@@ -17,14 +17,18 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<ReadPostResponse> read(){
-        return SERVICE.findAll();
+    public List<ReadPostResponse> read(@RequestParam(required = false) Long boardId){
+        if(boardId!=null){
+            return SERVICE.findByboardId(boardId);
+        }
+            return SERVICE.findAll();
     }
 
     @GetMapping("/posts/{postId}")
     public PostIdResponse findById(@PathVariable Long postId){
-        return SERVICE.findById(postId); 
+        return SERVICE.findById(postId);
     }
+
     @PutMapping("/posts/{postId}")
     public void update(@PathVariable Long postId,@RequestBody updatePostRequest request){
         SERVICE.update(postId,request);
