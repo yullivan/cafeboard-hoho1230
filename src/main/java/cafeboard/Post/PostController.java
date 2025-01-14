@@ -6,35 +6,35 @@ import java.util.List;
 
 @RestController
 public class PostController {
-    private final PostService SERVICE;
+    private final PostService postService;
 
-    public PostController(PostService SERVICE) {
-        this.SERVICE = SERVICE;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
     @PostMapping("/posts")
     public void create(@RequestBody CreatePostRequest request){
-        SERVICE.create(request);
+        postService.create(request);
     }
 
     @GetMapping("/posts")
     public List<ReadPostResponse> read(@RequestParam(required = false) Long boardId){
         if(boardId!=null){
-            return SERVICE.findByboardId(boardId);
+            return postService.findByboardId(boardId);
         }
-            return SERVICE.findAll();
+            return postService.findAll();
     }
 
     @GetMapping("/posts/{postId}")
     public PostIdResponse findById(@PathVariable Long postId){
-        return SERVICE.findById(postId);
+        return postService.findById(postId);
     }
 
     @PutMapping("/posts/{postId}")
     public void update(@PathVariable Long postId,@RequestBody updatePostRequest request){
-        SERVICE.update(postId,request);
+        postService.update(postId,request);
     }
     @DeleteMapping("/posts/{postId}")
     public void delete(@PathVariable Long postId,@RequestBody writerRequest request){
-        SERVICE.deleteById(postId,request);
+        postService.deleteById(postId,request);
     }
 }

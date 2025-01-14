@@ -1,32 +1,31 @@
 package cafeboard.Board;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class BoardController {
-    private final BoardService SERVICE;
+    private final BoardService boardService;
 
-    public BoardController(BoardService SERVICE) {
-        this.SERVICE = SERVICE;
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
     }
     @PostMapping("/boards")
     public void create(@RequestBody CreateBoardRequest request){
-         SERVICE.create(request);
+         boardService.create(request);
     }
     @GetMapping("/boards")
     public List<ReadBoardResponse> read(){
-        return SERVICE.findAll();
+        return boardService.findAll();
     }
     @PutMapping("/boards/{boardId}")
     public void update(@PathVariable Long boardId,@RequestBody CreateBoardRequest request){
-         SERVICE.update(boardId,request);
+         boardService.update(boardId,request);
     }
     @DeleteMapping("/boards/{boardId}")
     public void delete(@PathVariable Long boardId){
-         SERVICE.deleteById(boardId);
+         boardService.deleteById(boardId);
     }
 
 }
