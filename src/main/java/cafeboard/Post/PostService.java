@@ -47,12 +47,17 @@ public class PostService {
     @Transactional
     public void update(Long id, updatePostRequest request){
         Post post = repository.findById(id).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + id));
-        Board board = boardRepository.findById(request.boardId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
-        post.change(request);
-        post.setBoard(board);
-
+        if(request.writer().equals(post.getWriter())) {
+            Board board = boardRepository.findById(request.boardId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
+            post.change(request);
+            post.setBoard(board);
+        }else throw new RuntimeException("작성자가 동일하지 않습니다");
     }
-    public void deleteById(Long postId) {
-        repository.deleteById(postId);
+    @Transactional
+    public void deleteById(Long postId,writerRequest request) {
+        Post post = repository.findById(postId).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + postId));
+        if(request.writer().equals(post.getWriter())) {
+            repository.deleteById(postId);
+        }else throw new RuntimeException("작성자가 동일하지 않습니다");
     }
 }

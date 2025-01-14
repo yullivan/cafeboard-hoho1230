@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Post {
@@ -92,5 +94,18 @@ public class Post {
         title=request.title();
         content= request.content();
         writer= request.writer();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return commentCount == post.commentCount && Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(writer, post.writer) && Objects.equals(createTime, post.createTime) && Objects.equals(board, post.board) && Objects.equals(commentList, post.commentList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, content, writer, createTime, board, commentList, commentCount);
     }
 }
