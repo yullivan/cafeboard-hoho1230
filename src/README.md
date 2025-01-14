@@ -85,6 +85,7 @@
 * id : Long -> 댓글 ID
 ###### Body parameter_
 * content : String -> 댓글 내용
+* writer : String -> 작성자
 
 ### 삭제 Delete "/comments/{commentId}" 
 ###### Path Variable_

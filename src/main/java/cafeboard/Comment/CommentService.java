@@ -2,6 +2,7 @@ package cafeboard.Comment;
 
 import cafeboard.Post.Post;
 import cafeboard.Post.PostRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -21,5 +22,13 @@ public class CommentService {
         Post post = postRepository.findById(request.postId())
                 .orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다.:" + request.postId()));
        return repository.save(new Comment(request.content(),request.writer(),post));
+    }
+@Transactional
+    public void update(Long commentId, updateCommnetRequest request) {
+        Comment comment = repository.findById(commentId).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다.:" + commentId));
+        if(request.writer().equals(comment.getWriter())){
+            comment.update(request);
+        }else throw new RuntimeException("작성자가 일치하지 않습니다.");
+
     }
 }

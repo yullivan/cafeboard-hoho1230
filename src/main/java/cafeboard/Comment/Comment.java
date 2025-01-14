@@ -39,4 +39,8 @@ public class Comment {
     public Post getPost() {
         return post;
     }
+
+    public void update(updateCommnetRequest request) {
+        content= request.content();
+    }
 }
