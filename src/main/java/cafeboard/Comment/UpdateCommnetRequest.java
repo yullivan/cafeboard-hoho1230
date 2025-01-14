@@ -1,6 +1,6 @@
 package cafeboard.Comment;
 
-public record updateCommnetRequest(
+public record UpdateCommnetRequest(
         String content,
         String writer) {
 }

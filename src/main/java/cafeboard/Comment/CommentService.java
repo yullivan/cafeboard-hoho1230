@@ -2,7 +2,7 @@ package cafeboard.Comment;
 
 import cafeboard.Post.Post;
 import cafeboard.Post.PostRepository;
-import cafeboard.Post.writerRequest;
+import cafeboard.Post.WriterRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class CommentService {
     }
 
     @Transactional
-    public void update(Long commentId, updateCommnetRequest request) {
+    public void update(Long commentId, UpdateCommnetRequest request) {
         Comment comment = repository.findById(commentId).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다.:" + commentId));
         if (request.writer().equals(comment.getWriter())) {
             comment.update(request);
@@ -35,7 +35,7 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteById(Long commentId, writerRequest request) {
+    public void deleteById(Long commentId, WriterRequest request) {
 
         if (request.writer().equals(repository.findById(commentId).orElseThrow().getWriter())) {
             repository.deleteById(commentId);

@@ -1,6 +1,5 @@
 package cafeboard.Comment;
 
-import cafeboard.Board.Board;
 import cafeboard.Post.Post;
 import jakarta.persistence.*;
 
@@ -41,7 +40,7 @@ public class Comment {
         return post;
     }
 
-    public void update(updateCommnetRequest request) {
+    public void update(UpdateCommnetRequest request) {
         content= request.content();
     }
 }

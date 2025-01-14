@@ -1,6 +1,6 @@
 package cafeboard.Comment;
 
-import cafeboard.Post.writerRequest;
+import cafeboard.Post.WriterRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,11 +15,11 @@ public class CommentController {
         service.create(request);
     }
     @PutMapping("/comments/{commentId}")
-    public void update(@PathVariable Long commentId,@RequestBody updateCommnetRequest request){
+    public void update(@PathVariable Long commentId,@RequestBody UpdateCommnetRequest request){
         service.update(commentId,request);
     }
     @DeleteMapping("/comments/{commentId}")
-    public void delete(@PathVariable Long commentId, @RequestBody writerRequest request){
+    public void delete(@PathVariable Long commentId, @RequestBody WriterRequest request){
         service.deleteById(commentId,request);
     }
 }

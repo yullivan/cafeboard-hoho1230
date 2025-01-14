@@ -25,16 +25,16 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public PostIdResponse findById(@PathVariable Long postId){
+    public PostDetailResponse findById(@PathVariable Long postId){
         return postService.findById(postId);
     }
 
     @PutMapping("/posts/{postId}")
-    public void update(@PathVariable Long postId,@RequestBody updatePostRequest request){
+    public void update(@PathVariable Long postId,@RequestBody UpdatePostRequest request){
         postService.update(postId,request);
     }
     @DeleteMapping("/posts/{postId}")
-    public void delete(@PathVariable Long postId,@RequestBody writerRequest request){
+    public void delete(@PathVariable Long postId,@RequestBody WriterRequest request){
         postService.deleteById(postId,request);
     }
 }

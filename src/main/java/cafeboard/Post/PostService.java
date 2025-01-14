@@ -52,10 +52,10 @@ public class PostService {
                         post.getCommentCount()))
                 .toList();
     }
-    public PostIdResponse findById(Long id) {
+    public PostDetailResponse findById(Long id) {
         Post post = repository.findById(id).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
         Board board = boardRepository.findById(post.getBoard().getId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
-        return new PostIdResponse(
+        return new PostDetailResponse(
                 post.getId(),
                 post.getTitle(),
                 post.getContent()
@@ -74,7 +74,7 @@ public class PostService {
 
 
     @Transactional
-    public void update(Long id, updatePostRequest request) {
+    public void update(Long id, UpdatePostRequest request) {
         Post post = repository.findById(id).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + id));
         if (request.writer().equals(post.getWriter())) {
             Board board = boardRepository.findById(request.boardId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
@@ -84,7 +84,7 @@ public class PostService {
     }
 
     @Transactional
-    public void deleteById(Long postId, writerRequest request) {
+    public void deleteById(Long postId, WriterRequest request) {
         Post post = repository.findById(postId).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + postId));
         if (request.writer().equals(post.getWriter())) {
             repository.deleteById(postId);

@@ -8,7 +8,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -89,7 +88,7 @@ public class Post {
         this.board = board;
     }
 
-    public void change(updatePostRequest request){
+    public void change(UpdatePostRequest request){
         title=request.title();
         content= request.content();
         writer= request.writer();
