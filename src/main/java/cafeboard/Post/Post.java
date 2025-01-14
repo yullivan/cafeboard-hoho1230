@@ -29,14 +29,13 @@ public class Post {
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE,orphanRemoval = true)
     private List<Comment> commentList=new ArrayList<>();
 
-    private int commentCount=0;
 
     public Post(String title, String content, String writer, Board board) {
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.board = board;
-        this.commentCount = commentList.size();
+
     }
 
     public Post() {
@@ -67,7 +66,7 @@ public class Post {
     }
 
     public int getCommentCount() {
-        return commentCount;
+        return commentList.size();
     }
 
     public List<Comment> getCommentList() {
@@ -96,16 +95,6 @@ public class Post {
         writer= request.writer();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return commentCount == post.commentCount && Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(writer, post.writer) && Objects.equals(createTime, post.createTime) && Objects.equals(board, post.board) && Objects.equals(commentList, post.commentList);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, content, writer, createTime, board, commentList, commentCount);
-    }
+
 }
