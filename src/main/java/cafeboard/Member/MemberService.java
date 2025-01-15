@@ -31,4 +31,20 @@ public class MemberService {
                 member.getNickname());
     }
 
+
+    public void update(String memberId,UpdateMemberRequest request) {
+        Member member = memberRespository.findById(memberId)
+                .orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다." + memberId));
+        if(request.passWord().equals(member.getPassWord())){
+            member.update(request);
+        }else throw new IllegalArgumentException("비밀번호가 다릅니다");
+    }
+    public void delete(String memberId,UpdateMemberRequest request) {
+        Member member = memberRespository.findById(memberId)
+                .orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다." + memberId));
+        if(request.passWord().equals(member.getPassWord())){
+            memberRespository.deleteById(memberId);
+        }else throw new IllegalArgumentException("비밀번호가 다릅니다");
+    }
+
 }

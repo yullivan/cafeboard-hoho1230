@@ -37,4 +37,11 @@ public class Member {
     public String getNickname() {
         return nickname;
     }
+
+    public void update(UpdateMemberRequest request) {
+        passWord=request.passWord();
+        name=request.name();
+        nickname= request.nickname();
+    }
+
 }

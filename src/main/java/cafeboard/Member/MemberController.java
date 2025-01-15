@@ -17,5 +17,9 @@ public class MemberController {
     public MemberResponse read(@PathVariable String memberId){
         return memberService.findById(memberId);
     }
+    @PutMapping("/members/{memberId}")
+    public void update(@PathVariable String memberId,@RequestBody UpdateMemberRequest request){
+        memberService.update(memberId,request);
+    }
 
 }
