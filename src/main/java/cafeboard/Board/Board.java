@@ -23,7 +23,7 @@ public class Board {
     @OneToMany(mappedBy = "board",cascade = CascadeType.REMOVE)
     private List<Post> PostList;
 
-    public Board() {
+    protected Board() {
     }
 
     public Board(String title) {

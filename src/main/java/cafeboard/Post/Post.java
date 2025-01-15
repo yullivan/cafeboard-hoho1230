@@ -37,7 +37,7 @@ public class Post {
 
     }
 
-    public Post() {
+    protected Post() {
     }
 
     public Long getId() {

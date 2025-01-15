@@ -15,7 +15,7 @@ public class Comment {
     @ManyToOne
     private Post post;
 
-    public Comment() {
+    protected Comment() {
     }
 
     public Comment(String content, String writer, Post post) {
