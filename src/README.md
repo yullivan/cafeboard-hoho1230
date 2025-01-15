@@ -93,3 +93,35 @@
 ###### Body parameter_
 * writer: String -> 작성자
 
+
+# 회원(MEMBER)
+
+### 생성 Post "/members"
+
+###### Body parameter
+* id : String -> 아이디
+* password : String -> 비밀번호
+* name : String -> 회원 이름
+* nickname : String -> 닉네임
+
+### 조회 Get "/members/{memberId}"
+###### Path Variable_
+* id : Long -> 회원 ID
+###### Body parameter
+* name : String -> 회원 이름
+* nickname : String -> 닉네임
+
+### 수정 Put "/members/{memberId}"
+###### Path Variable_
+* id : Long -> 회원 ID
+###### Body parameter_
+* name : String -> 회원 이름
+* password : String -> 비밀번호
+* nickname : String -> 닉네임
+
+### 삭제 Delete  "/members/{memberId}"
+###### Path Variable_
+* id : Long -> 회원 ID
+###### Body parameter_
+* password : String -> 비밀번호
+
