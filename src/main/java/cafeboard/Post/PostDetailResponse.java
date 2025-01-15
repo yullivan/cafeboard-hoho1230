@@ -12,7 +12,7 @@ public record PostDetailResponse(
         String content,
         CreateBoardRequest board,
         LocalDateTime createdTime,
-        String writer,
+        String writerNickname,
         List<ReadCommentResponse> commentList
 ){
 }

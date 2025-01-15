@@ -2,6 +2,7 @@ package cafeboard.Post;
 
 import cafeboard.Board.Board;
 import cafeboard.Comment.Comment;
+import cafeboard.Member.Member;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,7 +18,9 @@ public class Post {
 
     private String title;
     private String content;
-    private String writer;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Member writer;
 
     @CreatedDate
     private LocalDateTime createTime;
@@ -29,7 +32,7 @@ public class Post {
     private List<Comment> commentList=new ArrayList<>();
 
 
-    public Post(String title, String content, String writer, Board board) {
+    public Post(String title, String content, Member writer, Board board) {
         this.title = title;
         this.content = content;
         this.writer = writer;
@@ -52,7 +55,7 @@ public class Post {
         return content;
     }
 
-    public String getWriter() {
+    public Member getWriter() {
         return writer;
     }
 
@@ -80,7 +83,7 @@ public class Post {
         this.content = content;
     }
 
-    public void setWriter(String writer) {
+    public void setWriter(Member writer) {
         this.writer = writer;
     }
 
@@ -91,7 +94,6 @@ public class Post {
     public void change(UpdatePostRequest request){
         title=request.title();
         content= request.content();
-        writer= request.writer();
     }
 
 

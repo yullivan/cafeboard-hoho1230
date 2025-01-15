@@ -1,8 +1,11 @@
 package cafeboard.Member;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+
+import static cafeboard.SecurityUtils.sha256EncryptHex2;
 
 @Service
 public class MemberService {
@@ -16,7 +19,7 @@ public class MemberService {
         memberRespository
                 .save(new Member(
                 request.id(),
-                request.passWord(),
+                sha256EncryptHex2(request.password()),
                 request.name(),
                 request.nickname()));
 
@@ -31,19 +34,20 @@ public class MemberService {
                 member.getNickname());
     }
 
-
+    @Transactional
     public void update(String memberId,UpdateMemberRequest request) {
         Member member = memberRespository.findById(memberId)
                 .orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다." + memberId));
-        if(request.passWord().equals(member.getPassWord())){
+        if(sha256EncryptHex2(request.password()).equals(member.getPassword())){
             member.update(request);
         }else throw new IllegalArgumentException("비밀번호가 다릅니다");
     }
-    public void delete(String memberId,UpdateMemberRequest request) {
+    @Transactional
+    public void deleteById(String memberId,PasswordRequset request) {
         Member member = memberRespository.findById(memberId)
                 .orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다." + memberId));
-        if(request.passWord().equals(member.getPassWord())){
-            memberRespository.deleteById(memberId);
+        if(sha256EncryptHex2(request.password()).equals(member.getPassword())){
+            memberRespository.deleteById(sha256EncryptHex2(memberId));
         }else throw new IllegalArgumentException("비밀번호가 다릅니다");
     }
 

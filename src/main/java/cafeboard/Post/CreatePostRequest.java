@@ -5,7 +5,8 @@ import cafeboard.Board.Board;
 public record CreatePostRequest(
         String title,
         String content,
-        String writer,
+        String writerId,
+        String writerNickname,
         Long boardId
 ) {
 }

@@ -2,12 +2,14 @@ package cafeboard.Member;
 
 import jakarta.persistence.*;
 
+import static cafeboard.SecurityUtils.sha256EncryptHex2;
+
 @Entity
 public class Member {
     @Id @Column (unique = true)
     private String id;
 
-    private String passWord;
+    private String password;
     private String name;
     @Column (unique = true)
     private String nickname;
@@ -15,9 +17,9 @@ public class Member {
     protected Member() {
     }
 
-    public Member(String id, String passWord, String name, String nickname) {
+    public Member(String id, String password, String name, String nickname) {
         this.id = id;
-        this.passWord = passWord;
+        this.password = sha256EncryptHex2(password);
         this.name = name;
         this.nickname = nickname;
     }
@@ -26,8 +28,8 @@ public class Member {
         return id;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
@@ -39,7 +41,7 @@ public class Member {
     }
 
     public void update(UpdateMemberRequest request) {
-        passWord=request.passWord();
+        password =sha256EncryptHex2(request.password());
         name=request.name();
         nickname= request.nickname();
     }

@@ -4,6 +4,8 @@ import cafeboard.Board.Board;
 import cafeboard.Board.BoardRepository;
 import cafeboard.Board.CreateBoardRequest;
 import cafeboard.Comment.ReadCommentResponse;
+import cafeboard.Member.Member;
+import cafeboard.Member.MemberRespository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -14,27 +16,31 @@ import java.util.NoSuchElementException;
 public class PostService {
     private final PostRepository repository;
     private final BoardRepository boardRepository;
+    private final MemberRespository memberRespository;
 
 
-    public PostService(PostRepository repository, BoardRepository boardRepository) {
+    public PostService(PostRepository repository, BoardRepository boardRepository,MemberRespository memberRespository) {
         this.repository = repository;
         this.boardRepository = boardRepository;
+        this.memberRespository=memberRespository;
     }
 
     public void create(CreatePostRequest request) {
-        Board board = boardRepository.findById(request.boardId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + request.boardId()));
-        repository.save(new Post(request.title(), request.content(), request.writer(), board));
+        Board board = boardRepository.findById(request.boardId())
+                .orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + request.boardId()));
+        Member writer = memberRespository.findById(request.writerId())
+                .orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + request.boardId()));
+        repository.save(new Post(request.title(), request.content(), writer, board));
     }
 
     public List<ReadPostResponse> findAll() {
-
         return repository.findAll()
                 .stream()
                 .map(post -> new ReadPostResponse(
                         post.getId(),
                         post.getTitle(),
                         post.getBoard().getId(),
-                        post.getWriter(),
+                        post.getWriter().getNickname(),
                         post.getCreateTime(),
                         post.getCommentCount()))
                 .toList();
@@ -47,7 +53,7 @@ public class PostService {
                         post.getId(),
                         post.getTitle(),
                         post.getBoard().getId(),
-                        post.getWriter(),
+                        post.getWriter().getNickname(),
                         post.getCreateTime(),
                         post.getCommentCount()))
                 .toList();
@@ -62,7 +68,7 @@ public class PostService {
                 , new CreateBoardRequest(
                 board.getTitle()),
                 post.getCreateTime(),
-                post.getWriter(),
+                post.getWriter().getNickname(),
                 post.getCommentList()
                         .stream()
                         .map(comment -> new ReadCommentResponse(
@@ -76,7 +82,7 @@ public class PostService {
     @Transactional
     public void update(Long id, UpdatePostRequest request) {
         Post post = repository.findById(id).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + id));
-        if (request.writer().equals(post.getWriter())) {
+        if (request.writerNickname().equals(post.getWriter().getNickname())) {
             Board board = boardRepository.findById(request.boardId()).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다. :" + id));
             post.change(request);
             post.setBoard(board);
@@ -86,7 +92,7 @@ public class PostService {
     @Transactional
     public void deleteById(Long postId, WriterRequest request) {
         Post post = repository.findById(postId).orElseThrow(() -> new NoSuchElementException("id를 찾을 수 없습니다: " + postId));
-        if (request.writer().equals(post.getWriter())) {
+        if (request.writer().equals(post.getWriter().getNickname())) {
             repository.deleteById(postId);
         } else throw new RuntimeException("작성자가 동일하지 않습니다");
     }

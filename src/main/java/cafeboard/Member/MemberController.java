@@ -21,5 +21,9 @@ public class MemberController {
     public void update(@PathVariable String memberId,@RequestBody UpdateMemberRequest request){
         memberService.update(memberId,request);
     }
+    @DeleteMapping("/members/{memberId}")
+    public void delete(@PathVariable String memberId,@RequestBody PasswordRequset requset){
+        memberService.deleteById(memberId,requset);
+    }
 
 }

@@ -8,7 +8,7 @@ public record ReadPostResponse(
         Long id,
         String title,
         Long boardId,
-        String writer,
+        String writerNickname,
         LocalDateTime createdTime,
         int commentCount
 ) {

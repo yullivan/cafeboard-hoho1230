@@ -1,7 +1,7 @@
 package cafeboard.Member;
 
 public record UpdateMemberRequest(
-        String passWord,
+        String password,
         String name,
         String nickname
 ) {
